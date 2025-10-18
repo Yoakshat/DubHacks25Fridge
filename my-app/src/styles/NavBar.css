@@ -1,0 +1,13 @@
+.app-nav {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #0b1220;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+.nav-link:hover { background: rgba(255,255,255,0.06); }
