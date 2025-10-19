@@ -9,6 +9,7 @@ import Fridge from './pages/Fridge'
 import FridgeInsidePage from './pages/FridgeInsidePage'
 import FriendsPage from './pages/FriendsPage'
 import Auction from './pages/Auction'
+import LoadCard from './pages/LoadCard'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/fridgeInside" element={<FridgeInsidePage/>} />
           <Route path="/friends" element={<FriendsPage/>} />
           <Route path="/auction" element={<Auction/>} />
+          <Route path="/loadCard" element={<LoadCard/>}/>
         </Routes>
       </main>
     </BrowserRouter>
