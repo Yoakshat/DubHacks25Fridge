@@ -29,7 +29,7 @@ function InnerSaveCardForm({ customerId, onSuccess, onClose }: SaveCardPopupProp
 
     try {
       // 1) Get SetupIntent client secret from backend
-      const res = await fetch("/create_setup_intent", {
+      const res = await fetch("http://localhost:3000/create_setup_intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ customerId }),
@@ -64,7 +64,7 @@ function InnerSaveCardForm({ customerId, onSuccess, onClose }: SaveCardPopupProp
 
 
       // Send it to backend to attach
-      await fetch("/attach_payment_method", {
+      await fetch("http://localhost:3000/attach_payment_method", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ customerId, paymentMethodId }),
@@ -73,7 +73,7 @@ function InnerSaveCardForm({ customerId, onSuccess, onClose }: SaveCardPopupProp
       setMessage("Card saved successfully!");
       setLoading(false);
       onSuccess?.();
-      onClose?.();
+      // onClose?.();
     } catch (err) {
      if (err instanceof Error){
         console.error(err);

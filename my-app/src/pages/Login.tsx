@@ -35,13 +35,13 @@ export default function Login() {
       borderRadius: 12,
       backgroundColor: '#f9f9f9'
     }}>
-      <h2 style={{ textAlign: 'center', marginBottom: 24 }}>
+      <h2 style={{ textAlign: 'center', marginBottom: 24, color: '#333' }}>
         🎨 Log In
       </h2>
       
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: 16 }}>
-          <label style={{ display: 'block', marginBottom: 8, fontWeight: 'bold' }}>
+          <label style={{ display: 'block', marginBottom: 8, fontWeight: 'bold', color: '#333'  }}>
             Email
           </label>
           <input
@@ -60,7 +60,7 @@ export default function Login() {
         </div>
 
         <div style={{ marginBottom: 16 }}>
-          <label style={{ display: 'block', marginBottom: 8, fontWeight: 'bold' }}>
+          <label style={{ display: 'block', marginBottom: 8, fontWeight: 'bold', color: '#333'  }}>
             Password
           </label>
           <input

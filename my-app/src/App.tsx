@@ -1,15 +1,16 @@
-import './styles/App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import ScanPage from './pages/ScanPage';
-import Fridge from './pages/Fridge';
+import './styles/App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import NavBar from './components/NavBar'
+import Home from './pages/Home'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+import ScanPage from './pages/ScanPage'
+import Fridge from './pages/Fridge'
+import FridgeInsidePage from './pages/FridgeInsidePage'
+import FriendsPage from './pages/FriendsPage'
+import Auction from './pages/Auction'
+import LoadCard from './pages/LoadCard'
 import MyImagesPage from './pages/MyImagesPage';
-import FridgeInsidePage from './pages/FridgeInsidePage';
-import FriendsPage from './pages/FriendsPage';
-import Auction from './pages/Auction';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/fridgeInside" element={<FridgeInsidePage />} />
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/auction" element={<Auction />} />
+          <Route path="/loadCard" element={<LoadCard/>}/>
         </Routes>
       </main>
     </BrowserRouter>
