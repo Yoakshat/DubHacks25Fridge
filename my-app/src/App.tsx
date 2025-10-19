@@ -6,6 +6,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import ScanPage from './pages/ScanPage'
 import Fridge from './pages/Fridge'
+import Auction from './pages/Auction'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/scan" element={<ScanPage/>} />
           <Route path="/fridge" element={<Fridge/>} />
+          <Route path="/auction" element={<Auction/>} />
         </Routes>
       </main>
     </BrowserRouter>
