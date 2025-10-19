@@ -24,6 +24,21 @@ export default function Signup() {
         createdAt: Date.now()
       });
 
+      // Create the customer using firebase
+      const res = await fetch("/create_customer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          metadata: { firebaseUid: user.uid } // optional mapping
+        }),
+      });
+      const { customer } = await res.json();
+      // customer.id 
+
+      // once signed up, then show popup (will link firebase customer id to a payment method)
+      
+
       console.log("User document created in Firestore");
     } catch (error) {
       if (error instanceof Error) {
