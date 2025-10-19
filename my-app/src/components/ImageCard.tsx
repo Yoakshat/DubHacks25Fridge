@@ -57,12 +57,8 @@ export default function ImageCard({ image, onClick, size }: ImageCardProps) {
             fontSize: 12,
           }}
         >
-          <div><strong>Dimensions:</strong> {image.width} × {image.height}px</div>
           <div><strong>Created:</strong> {formatDate(image.createdAt)}</div>
           <div><strong>Times Bought:</strong> {image.boughtBy.length}</div>
-          <div style={{ fontSize: 10, color: "#aaa", marginTop: 4 }}>
-            ID: {image.id.substring(0, 8)}...
-          </div>
         </div>
       )}
     </div>
