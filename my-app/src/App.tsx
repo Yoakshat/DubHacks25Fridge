@@ -5,6 +5,7 @@ import NavBar from './components/NavBar'
 import Home from './pages/Home'
 import Alice from './pages/Alice'
 import KidsCreation from './pages/KidsCreation'
+import Welcome from './pages/Welcome'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/alice" element={<Alice />} />
           <Route path="/kidsCreation" element={<KidsCreation />} />
+          <Route path="/welcome" element={<Welcome />} />
         </Routes>
       </main>
     </BrowserRouter>

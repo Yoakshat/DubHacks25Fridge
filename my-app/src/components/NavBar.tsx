@@ -8,6 +8,7 @@ export default function NavBar() {
       <Link className="nav-link" to="/alice">Alice</Link>
       <Link className="nav-link" to="/bob">Bob</Link>
       <Link className="nav-link" to="/kidsCreation">Kid's Creation</Link>
+      <Link className="nav-link" to="/welcome">Welcome</Link>
     </nav>
   )
 }
