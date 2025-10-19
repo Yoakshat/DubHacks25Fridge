@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import ImageCard from "../components/ImageCard";
+import ImageModal from "../components/ImageModal";
 import type { ImageData } from "../types/image";
 import type { UserData } from "../types/user";
 
@@ -11,6 +12,7 @@ export default function FridgeInsidePage() {
   const [images, setImages] = useState<(ImageData & { id: string })[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<(ImageData & { id: string }) | null>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -19,7 +21,6 @@ export default function FridgeInsidePage() {
       try {
         setLoading(true);
         
-        // 1. Get user document to find createdImages array
         const userDoc = await getDoc(doc(db, "users", user.uid));
         
         if (!userDoc.exists()) {
@@ -37,7 +38,6 @@ export default function FridgeInsidePage() {
           return;
         }
 
-        // 2. Fetch all image documents
         const imagePromises = createdImageIds.map(async (imageId) => {
           const imageDoc = await getDoc(doc(db, "images", imageId));
           if (imageDoc.exists()) {
@@ -101,9 +101,21 @@ export default function FridgeInsidePage() {
         }}
       >
         {images.map((image) => (
-          <ImageCard key={image.id} image={image} />
+          <ImageCard 
+            key={image.id} 
+            image={image}
+            onClick={() => setSelectedImage(image)}
+          />
         ))}
       </div>
+
+      {selectedImage && (
+        <ImageModal
+          image={selectedImage}
+          currentUserId={user.uid}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </div>
   );
 }

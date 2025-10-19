@@ -9,12 +9,13 @@ export default function NavBar() {
 
   const onSignOut = async () => {
     await handleSignOut();
-    navigate('/auth');
+    navigate('/login');
   };
 
   return (
     <nav className="app-nav">
       <Link className="nav-link" to="/">Home</Link>
+      <Link className="nav-link" to="/firebase">Firebase</Link>
       <Link className="nav-link" to="/scan">Scan</Link>
       <Link className="nav-link" to="/fridge">Fridge</Link>
       <Link className="nav-link" to="/fridgeInside">Fridge Inside</Link>
@@ -35,7 +36,7 @@ export default function NavBar() {
           Sign Out
         </button>
       ) : (
-        <Link className="nav-link" to="/auth">Sign In</Link>
+        <Link className="nav-link" to="/login">Log In</Link>
       )}
     </nav>
   );

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { ImageData } from "../types/image";
 
 interface ImageCardProps {
   image: ImageData & { id: string };
+  onClick?: () => void;
 }
 
-export default function ImageCard({ image }: ImageCardProps) {
+export default function ImageCard({ image, onClick }: ImageCardProps) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const formatDate = (timestamp: number) => {
@@ -30,6 +31,7 @@ export default function ImageCard({ image }: ImageCardProps) {
       onMouseLeave={() => setShowTooltip(false)}
       onTouchStart={() => setShowTooltip(true)}
       onTouchEnd={() => setShowTooltip(false)}
+      onClick={onClick}
     >
       <img
         src={image.url}
