@@ -5,6 +5,7 @@ import NavBar from './components/NavBar'
 import Home from './pages/Home'
 import Alice from './pages/Alice'
 import Signup from './pages/Signup'
+import Login from './pages/Login'
 import TestUploadPage from './pages/TestUploadPage'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/alice" element={<Alice />} />
           <Route path="/firebase" element={<TestUploadPage />} />
           <Route path="/signup" element={<Signup/>} />
+          <Route path="/login" element={<Login/>} />
         </Routes>
       </main>
     </BrowserRouter>

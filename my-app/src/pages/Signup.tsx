@@ -1,11 +1,20 @@
-export default function Signup(){
-    return (
-        <div> 
-            <h3>Username</h3> 
-            <input type="text" id="username" placeholder="Type your username here"/>
+import type { Auth } from "firebase/auth"; 
+import AuthForm from "../components/AuthForm";
+// create a new user account
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-            <h3>Password</h3> 
-            <input type="text" id="password" placeholder="Type your password here"/>
-        </div> 
-    )
+export default function Signup(){
+    const handleSignUp = async (auth: Auth, email: string, password: string) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            console.log("User signed up:", userCredential.user);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error("Error signing up:", error.message);
+            } 
+        }
+    };
+
+    return <AuthForm onSubmit={handleSignUp} submitLabel="Sign Up" />;
 }
+
