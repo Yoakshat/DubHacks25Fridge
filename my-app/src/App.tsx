@@ -7,6 +7,7 @@ import Alice from './pages/Alice'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import TestUploadPage from './pages/TestUploadPage'
+import Fridge from './pages/Fridge'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/firebase" element={<TestUploadPage />} />
           <Route path="/signup" element={<Signup/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/fridge" element={<Fridge/>} />
         </Routes>
       </main>
     </BrowserRouter>

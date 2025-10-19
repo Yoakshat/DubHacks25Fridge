@@ -3,6 +3,7 @@ import AuthForm from "../components/AuthForm";
 // create a new user account
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
+// later they will also need to mark are they a kid or not
 export default function Signup(){
     const handleSignUp = async (auth: Auth, email: string, password: string) => {
         try {

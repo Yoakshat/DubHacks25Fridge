@@ -9,6 +9,7 @@ export default function NavBar() {
       <Link className="nav-link" to="/firebase">Firebase</Link>
       <Link className="nav-link" to="/signup">Signup</Link>
       <Link className="nav-link" to="/login">Login</Link>
+      <Link className="nav-link" to="/fridge">Fridge</Link>
     </nav>
   )
 }
