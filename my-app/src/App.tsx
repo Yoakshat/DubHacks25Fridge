@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ScanPage from './pages/ScanPage';
 import Fridge from './pages/Fridge';
+import MyImagesPage from './pages/MyImagesPage';
 import FridgeInsidePage from './pages/FridgeInsidePage';
 import FriendsPage from './pages/FriendsPage';
 import Auction from './pages/Auction';
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/scan" element={<ScanPage />} />
           <Route path="/fridge" element={<Fridge />} />
+          <Route path="/myimages" element={<MyImagesPage />} />
           <Route path="/fridgeInside" element={<FridgeInsidePage />} />
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/auction" element={<Auction />} />

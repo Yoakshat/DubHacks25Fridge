@@ -15,7 +15,6 @@ export default function NavBar() {
   return (
     <nav className="app-nav">
       <Link className="nav-link" to="/">Home</Link>
-      <Link className="nav-link" to="/firebase">Firebase</Link>
       <Link className="nav-link" to="/scan">Scan</Link>
       <Link className="nav-link" to="/fridge">Fridge</Link>
       <Link className="nav-link" to="/fridgeInside">Fridge Inside</Link>

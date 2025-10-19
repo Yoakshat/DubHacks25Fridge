@@ -4,9 +4,10 @@ import type { ImageData } from "../types/image";
 interface ImageCardProps {
   image: ImageData & { id: string };
   onClick?: () => void;
+  size?: number;
 }
 
-export default function ImageCard({ image, onClick }: ImageCardProps) {
+export default function ImageCard({ image, onClick, size }: ImageCardProps) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const formatDate = (timestamp: number) => {
@@ -38,7 +39,7 @@ export default function ImageCard({ image, onClick }: ImageCardProps) {
         alt="Created artwork"
         style={{
           width: "100%",
-          height: 200,
+          height: size || 200,
           objectFit: "cover",
         }}
       />
