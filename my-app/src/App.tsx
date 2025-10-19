@@ -8,6 +8,7 @@ import ScanPage from './pages/ScanPage'
 import Fridge from './pages/Fridge'
 import FridgeInsidePage from './pages/FridgeInsidePage'
 import FriendsPage from './pages/FriendsPage'
+import Auction from './pages/Auction'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/fridge" element={<Fridge/>} />
           <Route path="/fridgeInside" element={<FridgeInsidePage/>} />
           <Route path="/friends" element={<FriendsPage/>} />
+          <Route path="/auction" element={<Auction/>} />
         </Routes>
       </main>
     </BrowserRouter>

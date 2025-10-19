@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 // compute the positions first, then place according to it
 function getPositions(numImages: number, fridgeWidth: number, imageSize: number, gap: number){
     const magnetPos = [] 
@@ -24,14 +26,14 @@ export default function Fridge(){
     const fridgeWidth = 400
     const imgSize = 80
     const fridgePositions: number[][] = getPositions(images.length, fridgeWidth, imgSize, 30)
-
+    const navigate = useNavigate()
     // fridge renders and get the top corner (specify type)
 
-    const zoomIn = () => {
+    const zoomIn = (imgSrc: string) => {
         // should render new page and actually pass the image in 
         // with a piggy bank
-        
-    }
+        navigate("/auction", {state: {imgSrc: imgSrc}})
+    }   
 
     return (
         // center the fridge
@@ -67,7 +69,7 @@ export default function Fridge(){
                             background: "none", 
                             cursor: "pointer",
                         }}
-                        onClick={zoomIn}
+                        onClick={() => zoomIn("src/assets/test_kid_images/" + imgSrc)}
                     >
 
                         <img
