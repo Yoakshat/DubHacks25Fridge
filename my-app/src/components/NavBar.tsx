@@ -10,6 +10,8 @@ export default function NavBar() {
       <Link className="nav-link" to="/login">Login</Link>
       <Link className="nav-link" to="/scan">Scan</Link>
       <Link className="nav-link" to="/fridge">Fridge</Link>
+      <Link className="nav-link" to="/fridgeInside">Fridge Inside</Link>
+      <Link className="nav-link" to="/friends">Friends</Link>
     </nav>
   )
 }

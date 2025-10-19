@@ -6,6 +6,8 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import ScanPage from './pages/ScanPage'
 import Fridge from './pages/Fridge'
+import FridgeInsidePage from './pages/FridgeInsidePage'
+import FriendsPage from './pages/FriendsPage'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/scan" element={<ScanPage/>} />
           <Route path="/fridge" element={<Fridge/>} />
+          <Route path="/fridgeInside" element={<FridgeInsidePage/>} />
+          <Route path="/friends" element={<FriendsPage/>} />
         </Routes>
       </main>
     </BrowserRouter>
