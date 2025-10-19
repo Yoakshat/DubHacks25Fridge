@@ -7,6 +7,7 @@ export default function NavBar() {
       <Link className="nav-link" to="/">Home</Link>
       <Link className="nav-link" to="/alice">Alice</Link>
       <Link className="nav-link" to="/bob">Bob</Link>
+      <Link className="nav-link" to="/kidsCreation">Kid's Creation</Link>
     </nav>
   )
 }
