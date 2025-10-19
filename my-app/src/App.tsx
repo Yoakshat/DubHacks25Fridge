@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import Home from './pages/Home'
 import Alice from './pages/Alice'
+import KidsCreation from './pages/KidsCreation'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/alice" element={<Alice />} />
+          <Route path="/kidsCreation" element={<KidsCreation />} />
         </Routes>
       </main>
     </BrowserRouter>
