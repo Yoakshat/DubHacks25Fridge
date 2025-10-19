@@ -44,8 +44,24 @@ app.post("/create_customer", async (req, res) => {
 app.post("/create_connected", async (req, res) => {
   try{
     const {email} = req.body; 
-    const account = await stripe.accounts.create({ type: "express", country: "US", email: email, });
-    res.json({account}); 
+    // create an account for user with email
+    const account = await stripe.accounts.create({
+        type: "custom",
+        country: "US",
+        email: email,
+        capabilities: { transfers: { requested: true } },
+        business_type: "individual",
+        individual: {
+          first_name: "Test",
+          last_name: "User",
+          dob: { day: 1, month: 1, year: 1990 },
+        },
+        tos_acceptance: {
+          date: Math.floor(Date.now() / 1000),
+          ip: "8.8.8.8", // any test IP
+        },
+    });
+    // res.json({account}); 
   } catch (err){
     console.error(err)
     res.status(500).json({ error: err.message });
@@ -97,15 +113,22 @@ app.post("/attach_payment_method", async (req, res) => {
 // -----------------------------
 app.post("/send_money", async (req, res) => {
   try {
-    const { customerId, paymentMethodId, amount, currency = "usd", destinationAccountId, applicationFeeAmount = 0 } = req.body;
+    const { customerId, amount, currency = "usd", destinationAccountId} = req.body;
 
-    if (!customerId || !paymentMethodId || !amount || !destinationAccountId) {
+    if (!customerId ||!amount || !destinationAccountId) {
       return res.status(400).json({ error: "Missing required parameters" });
     }
 
+    console.log("retrieving customer....")
+    const customer = await stripe.customers.retrieve(customerId);
+    const paymentMethodId = customer.invoice_settings.default_payment_method;
+
+    const cents = amount * 100; 
+
+    console.log("doing payment...")
     // 1) Create PaymentIntent to charge customer
     const paymentIntent = await stripe.paymentIntents.create({
-      amount, // in cents
+      amount: cents, 
       currency,
       customer: customerId,
       payment_method: paymentMethodId,
@@ -114,14 +137,13 @@ app.post("/send_money", async (req, res) => {
       transfer_data: {
         destination: destinationAccountId, // connected account
       },
-      application_fee_amount, // optional platform fee
     });
 
     // 2) Handle payment requiring action (3D Secure)
+    console.log("handling action...")
     if (paymentIntent.status === "requires_action" || paymentIntent.status === "requires_source_action") {
       return res.json({ requiresAction: true, clientSecret: paymentIntent.client_secret });
     }
-
     // 3) Payment succeeded
     res.json({ success: true, paymentIntent });
   } catch (err) {

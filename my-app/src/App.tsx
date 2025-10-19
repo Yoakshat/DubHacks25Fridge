@@ -8,9 +8,10 @@ import ScanPage from './pages/ScanPage'
 import Fridge from './pages/Fridge'
 import FridgeInsidePage from './pages/FridgeInsidePage'
 import FriendsPage from './pages/FriendsPage'
-import Auction from './pages/Auction'
+import PayImages from './pages/PayImages'
 import LoadCard from './pages/LoadCard'
 import MyImagesPage from './pages/MyImagesPage';
+
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <Route path="/myimages" element={<MyImagesPage />} />
           <Route path="/fridgeInside" element={<FridgeInsidePage />} />
           <Route path="/friends" element={<FriendsPage />} />
-          <Route path="/auction" element={<Auction />} />
+          <Route path="/auction" element={<PayImages />} />
           <Route path="/loadCard" element={<LoadCard/>}/>
         </Routes>
       </main>

@@ -15,6 +15,9 @@ export interface ReceivedImage {
 export interface UserData {
   name: string;
   isKid: boolean;
+  kidEmail: string, 
+  kidAccountId: string, 
+  customerId: string, 
   balance: number;
   createdImages: string[];
   ownedImages: string[];

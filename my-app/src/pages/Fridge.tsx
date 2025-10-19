@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -33,7 +33,6 @@ const GAP = 20;
 
 export default function Fridge() {
   const { user, loading: authLoading } = useAuth();
-  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   
   const [fridgeItems, setFridgeItems] = useState<FridgeItem[]>([]);
@@ -140,7 +139,6 @@ export default function Fridge() {
       setImageDataMap(newImageMap);
       
       setSelectedImage(null);
-      setSearchParams({});
       alert("Image added to fridge! 🎨");
     } catch (error) {
       console.error("Error adding to fridge:", error);
@@ -164,11 +162,6 @@ export default function Fridge() {
       }
     }
     return undefined;
-  };
-
-  const isSpotOccupied = (top: number, left: number): boolean => {
-    if (!Array.isArray(fridgeItems)) return false;
-    return fridgeItems.some(item => item.y === top && item.x === left);
   };
 
   if (authLoading || loading) {
@@ -206,7 +199,6 @@ export default function Fridge() {
               <button
                 onClick={() => {
                   setSelectedImage(null);
-                  setSearchParams({});
                 }}
                 style={{
                   marginLeft: 10,
@@ -254,6 +246,41 @@ export default function Fridge() {
           alt="Fridge"
           style={{ width: '100%', height: 'auto' }} 
         />
+        
+        {/* Clickable Door Area */}
+        <div
+          onClick={() => navigate('/fridgeInside')}
+          style={{
+            position: 'absolute',
+            top: '30%',
+            left: '5%',
+            width: '35%',
+            height: '50%',
+            cursor: 'pointer',
+            transition: 'opacity 0.2s',
+            opacity: 0,
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = '0.1'}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}
+          title="Click to open fridge"
+        >
+          <div style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(255, 255, 255, 0.3)',
+            border: '2px dashed rgba(255, 255, 255, 0.5)',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            color: 'white',
+            textShadow: '0 0 4px rgba(0,0,0,0.8)'
+          }}>
+            Open Door
+          </div>
+        </div>
         
         {/* Render all spots */}
         {fridgePositions.map((position, index) => {

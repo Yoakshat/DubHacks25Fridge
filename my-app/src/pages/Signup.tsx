@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, query, where, setDoc, updateDoc, arrayUnion} from "firebase/firestore";
 import { auth, db } from "../firebase";
 
 export default function Signup() {
@@ -33,21 +33,8 @@ export default function Signup() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Firestore user document
-      await setDoc(doc(db, "users", user.uid), {
-        kidEmail: kidEmail || null,
-        email,
-        name: name.trim(),
-        isKid,
-        balance: 0,
-        createdImages: [],
-        ownedImages: [],
-        fridge: [],
-        receivedImages: [],
-        friends: [],
-        createdAt: Date.now()
-      });
+      let kidAccountId = null; 
+      
 
       // Create Stripe customer
       const res = await fetch("http://localhost:3000/create_customer", {
@@ -57,16 +44,74 @@ export default function Signup() {
       });
       const { customer } = await res.json();
 
-      // Create connected account for kid (optional)
-      if (kidEmail) {
-        await fetch("http://localhost:3000/create_connected_account", {
+
+      // Create connected account for kid 
+      if (!isKid && kidEmail) {
+        const connection = await fetch("http://localhost:3000/create_connected", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ kidEmail }),
         });
+        
+        const data = await connection.json();
+        console.log("Data: ", data)
+        console.log("data account id: ", data.account.id)
+        // set not only the kid's email but the destination id
+        kidAccountId = data.account.id
+
+        // Add the kid as a friend 
+        // Search for users with this email "kidEmail"
+        // then save this friend id
+        // Below add this id to our friends list (bidrectional)
+        const usersQuery = await getDocs(
+            query(collection(db, "users"), where("email", "==", kidEmail))
+        );
+
+        let kidUserId: string | null = null;
+
+        usersQuery.forEach((docSnap) => {
+            kidUserId = docSnap.id; // get the Firestore document ID
+        });
+
+        await setDoc(doc(db, "users", user.uid), {
+            kidEmail: kidEmail || null,
+            kidAccountId: kidAccountId, 
+            customerId: customer.id, 
+            email,
+            name: name.trim(),
+            isKid,
+            balance: 0,
+            createdImages: [],
+            ownedImages: [],
+            fridge: [],
+            receivedImages: [],
+            friends: [],
+            createdAt: Date.now()
+        });
+
+        if (kidUserId) {
+            // add friends both ways
+            const currentUserRef = doc(db, "users", user.uid);
+            await updateDoc(currentUserRef, {
+                friends: arrayUnion(kidUserId),
+            });
+
+            const kidUserRef = doc(db, "users", kidUserId);
+            await updateDoc(kidUserRef, {
+                friends: arrayUnion(user.uid),
+            });
+
+            console.log(`Added kid as a friend with ID: ${kidUserId}`);
+        } else {
+            console.log(`No user found with email: ${kidEmail}`);
+        }
       }
 
-      navigate('/loadCard', { state: { customerId: customer.id } });
+      if(!isKid){ 
+        navigate('/loadCard', { state: { customerId: customer.id } });
+      } else {
+        navigate('/fridge')
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
