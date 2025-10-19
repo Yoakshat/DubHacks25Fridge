@@ -16,7 +16,6 @@ export default function NavBar() {
     <nav className="app-nav">
       <Link className="nav-link" to="/scan">Scan</Link>
       <Link className="nav-link" to="/fridge">Fridge</Link>
-      <Link className="nav-link" to="/fridgeInside">Fridge Inside</Link>
       <Link className="nav-link" to="/auction">Auction</Link>
       
       {user ? (
