@@ -1,21 +1,36 @@
-import type { Auth } from "firebase/auth"; 
+import type { Auth } from "firebase/auth";
 import AuthForm from "../components/AuthForm";
-// create a new user account
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
-// later they will also need to mark are they a kid or not
-export default function Signup(){
-    const handleSignUp = async (auth: Auth, email: string, password: string) => {
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            console.log("User signed up:", userCredential.user);
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error("Error signing up:", error.message);
-            } 
-        }
-    };
+export default function Signup() {
+  const handleSignUp = async (auth: Auth, email: string, password: string) => {
+    try {
+      // 1. Create Firebase Auth user
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log("User signed up:", user);
 
-    return <AuthForm onSubmit={handleSignUp} submitLabel="Sign Up" />;
+      // 2. Create Firestore user document with initial schema
+      await setDoc(doc(db, "users", user.uid), {
+        name: email.split("@")[0], // Default name from email, can be updated later
+        isKid: true, // Default to true, can be updated later
+        balance: 0,
+        createdImages: [],
+        ownedImages: [],
+        fridge: {},
+        receivedImages: [],
+        createdAt: Date.now()
+      });
+
+      console.log("User document created in Firestore");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error signing up:", error.message);
+      }
+    }
+  };
+
+  return <AuthForm onSubmit={handleSignUp} submitLabel="Sign Up" />;
 }
-
