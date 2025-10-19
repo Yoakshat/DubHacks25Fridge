@@ -10,6 +10,7 @@ import FridgeInsidePage from './pages/FridgeInsidePage'
 import FriendsPage from './pages/FriendsPage'
 import Auction from './pages/Auction'
 import LoadCard from './pages/LoadCard'
+import './styles/App.css';
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
         </Routes>
       </main>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

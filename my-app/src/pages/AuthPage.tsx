@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { handleLogin } from '../utils/authUtils';
+import { useNavigate } from 'react-router-dom';
+import { handleSignUp, handleLogin } from '../utils/authUtils';
 
-export default function Login() {
+export default function AuthPage() {
+  const [isSignUp, setIsSignUp] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -15,7 +16,11 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await handleLogin(email, password);
+      if (isSignUp) {
+        await handleSignUp(email, password);
+      } else {
+        await handleLogin(email, password);
+      }
       navigate('/');
     } catch (error) {
       if (error instanceof Error) {
@@ -36,7 +41,7 @@ export default function Login() {
       backgroundColor: '#f9f9f9'
     }}>
       <h2 style={{ textAlign: 'center', marginBottom: 24 }}>
-        🎨 Log In
+        {isSignUp ? '🎨 Sign Up' : '🎨 Log In'}
       </h2>
       
       <form onSubmit={handleSubmit}>
@@ -108,24 +113,29 @@ export default function Login() {
             opacity: loading ? 0.7 : 1
           }}
         >
-          {loading ? 'Logging in...' : 'Log In'}
+          {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Log In'}
         </button>
       </form>
 
       <div style={{ marginTop: 20, textAlign: 'center' }}>
-        <p style={{ color: '#666', fontSize: 14 }}>
-          Don't have an account?{' '}
-          <Link 
-            to="/signup" 
-            style={{ 
-              color: '#4CAF50', 
-              textDecoration: 'none',
-              fontWeight: 'bold'
-            }}
-          >
-            Sign up
-          </Link>
-        </p>
+        <button
+          onClick={() => {
+            setIsSignUp(!isSignUp);
+            setError('');
+          }}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#4CAF50',
+            cursor: 'pointer',
+            textDecoration: 'underline',
+            fontSize: 14
+          }}
+        >
+          {isSignUp 
+            ? 'Already have an account? Log in' 
+            : "Don't have an account? Sign up"}
+        </button>
       </div>
     </div>
   );
