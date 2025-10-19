@@ -8,6 +8,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import TestUploadPage from './pages/TestUploadPage'
 import ScanPage from './pages/ScanPage'
+import Fridge from './pages/Fridge'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signup" element={<Signup/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/scan" element={<ScanPage/>} />
+          <Route path="/fridge" element={<Fridge/>} />
         </Routes>
       </main>
     </BrowserRouter>
